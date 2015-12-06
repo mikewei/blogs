@@ -7,6 +7,7 @@ category: 未分类
 Hello, this is my first JB post~
 
 {% highlight c,c++ %}
+```c
 /* hello_world.c */
 #include <stdio.h>
 int main()
@@ -14,4 +15,5 @@ int main()
     printf("hello world\n");
     return 0;
 }
+```
 {% endhighlight %}
