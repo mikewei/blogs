@@ -22,14 +22,21 @@
 $$
 M1 = \frac {log(N)} {log\;log(N)}
 $$
+
 双哈希算法下的最大查找次数为[[*][3]]：
 $$
 M2 = \frac {2\;log\;log(N)} {log(2)}
 $$
+
 实际有：
 $$
-log(M1) = log\,log(N) - log\,log\,log(N) \approx O(log\,log(N)) = O(M2)
+\begin{split}
+log(M1) &= log\,log(N) - log\,log\,log(N) \\\\
+        &\approx O(log\,log(N)) \\\\
+        &= O(M2)
+\end{split}
 $$
+
 所以M2比M1相对N增长更慢，近似于$$$log(N) \rightarrow log\,log(N) $$$的关系。
 
 #### 结论
