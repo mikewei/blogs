@@ -12,11 +12,11 @@
 
 下图是两种算法在不同数据规模N下(设哈希表的桶数也为N)的平均查找次数对比。可以看出基于双哈希算法的平均查找次数略高于普通算法，且与数据规模基本无关。
 
-![avg_depth](res/201605-hashtable_with_2hash/linked_ht_1vs2_avg_depth.png)
+![avg_depth](/res/201605-hashtable_with_2hash/linked_ht_1vs2_avg_depth.png)
 
 类似的，下图对比两种算法下的最大查找次数(查找一个Key最坏情况下需要的查找次数)。两种算法都随着N的增长缓慢增长(对数级)，并且双哈希算法比普通算法增长略微慢一些，实际在$$$2^{20}$$$规模以下无明显优势。
 
-![max_depth](res/201605-hashtable_with_2hash/linked_ht_1vs2_max_depth.png)
+![max_depth](/res/201605-hashtable_with_2hash/linked_ht_1vs2_max_depth.png)
 
 这点可以从数学分析上做个形式的分析，普通哈希算法下(大概率下)最大查找次数为[[*][2]]:
 $$
