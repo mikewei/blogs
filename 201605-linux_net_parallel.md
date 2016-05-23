@@ -162,7 +162,7 @@ SO\_REUSEPORT很好地解决了多进程读写同一端口场景的2个问题：
 
 如果你对它的实现有兴趣，可以从[这里(UDP)](http://lxr.free-electrons.com/source/net/ipv4/udp.c#L614)和[这里(TCP)](http://lxr.free-electrons.com/source/net/ipv4/inet_hashtables.c#L238)看看源码。
 
-这里有一篇介绍得也比较详细的[文章](https://lwn.net/Articles/542629/)
+这里有一篇介绍得也比较详细的[文章](https://lwn.net/Articles/542629/)。
 
 #### 总结
 
