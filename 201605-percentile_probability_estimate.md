@@ -113,7 +113,7 @@ import n_for_percentile
 
 n = n_for_percentile.get_n_for_percentile('99.9')
 
-\# only three status variables needed
+# only three status variables needed
 counter = 0
 max_of_n = 0
 sum_of_max = 0
@@ -137,6 +137,8 @@ if __name__ == '__main__':
         percentile_estimate_proc(random.uniform(0, 1000))
     print get_cur_percentile_estimate()
 ```
+
+另外，此算法也能很容易适用于集群汇总统计，即合并多台服务器的统计值，实际只需将上述代码中counter与sum_of_max进行汇总合并即可。
 
 #### 总结
 
