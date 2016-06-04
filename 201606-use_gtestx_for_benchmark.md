@@ -35,7 +35,7 @@ TEST(SimpleTest, SysCall)
 }
 ```
 
-实际上PERF_TEST跟TEST确实非常类似，它的两个参数的含意与TEST相同，都是表示gtest框架中的TestCaseName和TestName。所不同的是，PERF_TEST的函数体并非只像TESt的函数体一样只运行一次，而是(默认)会死循环一段特定的时间并统计相关counter。在用例执行时，PERF_TEST也会自动将统计的性能数据打印出来：
+实际上PERF\_TEST跟TEST确实非常类似，它的两个参数的含意与TEST相同，都是表示gtest框架中的TestCaseName和TestName。所不同的是，PERF\_TEST的函数体并非只像TESt的函数体一样只运行一次，而是(默认)会死循环一段特定的时间并统计相关counter。在用例执行时，PERF\_TEST也会自动将统计的性能数据打印出来：
 
 ```
 $ ./gtestx_examples --gtest_filter='SimpleTest.*'
@@ -87,12 +87,30 @@ PERF_TEST_F(StdMapTest, FindPerf)
 }
 ```
 
-如上代码中，初始化部分在SetUp函数中完成，PERF_TEST_F宏是原有TEST_F宏的一个gtestx版本，它只需一行代码，非常简单。用例执行结果如下：
+如上代码中，初始化部分在SetUp函数中完成，PERF\_TEST\_F宏是原有TEST\_F宏的一个gtestx版本，它只需一行代码，非常简单。用例执行结果如下：
+
+```
+$ ./gtestx_examples --gtest_filter='StdMapTest.FindPerf'
+[==========] Running 1 test from 1 test case.
+[----------] Global test environment set-up.
+[----------] 1 test from StdMapTest
+[ RUN      ] StdMapTest.FindPerf
+      count: 3,187,592
+       time: 1.508904 s
+         HZ: 2,112,521.406266
+       1/HZ: 0.000000473 s
+[       OK ] StdMapTest.FindPerf (1512 ms)
+[----------] 1 test from StdMapTest (1512 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test case ran. (1512 ms total)
+[  PASSED  ] 1 test.
+```
 
 
 #### 带参数的Fixture用例
 
-假设我们要测试std::unordered_map的查找性能，但hash表的性能跟它的桶数量有很大的关系，我们希望测试在不同节点数/桶数量的配置下的查找性能的情况。若用普通方法我们需要根据不同的配置写多个用例，但使用带参数的Fixture用例一个就可以搞定了：
+假设我们要测试std::unordered\_map的查找性能，但hash表的性能跟它的桶数量有很大的关系，我们希望测试在不同节点数/桶数量的配置下的查找性能的情况。若用普通方法我们需要根据不同的配置写多个用例，但使用带参数的Fixture用例一个就可以搞定了：
 
 ```C++
 #include <unordered_map>
@@ -123,8 +141,37 @@ PERF_TEST_P(HashMapTest, FindPerf)
 }
 ```
 
-上面代码中我们使用INSTANTIATE_TEST_CASE_P宏设定需要测试的不同参数值（这点与gtest中是完全相同），然后使用PERF_TEST_P定义性能测试的代码（跟gtest中的TEST_P宏对应）。它的执行结果如下，可以看出性能随着节点/桶数的比例参数下降而升高：
+上面代码中我们使用INSTANTIATE\_TEST\_CASE\_P宏设定需要测试的不同参数值（这点与gtest中是完全相同），然后使用PERF\_TEST\_P定义性能测试的代码（跟gtest中的TEST\_P宏对应）。它的执行结果如下，可以看出性能随着节点/桶数的比例参数下降而升高：
 
+```
+$ ./gtestx_examples --gtest_filter='*HashMapTest.FindPerf*'
+[==========] Running 3 tests from 1 test case.
+[----------] Global test environment set-up.
+[----------] 3 tests from LoadFactor/HashMapTest
+[ RUN      ] LoadFactor/HashMapTest.FindPerf/0
+      count: 4,629,181
+       time: 1.509068 s
+         HZ: 3,067,576.146337
+       1/HZ: 0.000000326 s
+[       OK ] LoadFactor/HashMapTest.FindPerf/0 (1511 ms)
+[ RUN      ] LoadFactor/HashMapTest.FindPerf/1
+      count: 11,975,484
+       time: 1.508859 s
+         HZ: 7,936,781.369233
+       1/HZ: 0.000000126 s
+[       OK ] LoadFactor/HashMapTest.FindPerf/1 (1510 ms)
+[ RUN      ] LoadFactor/HashMapTest.FindPerf/2
+      count: 16,320,267
+       time: 1.508913 s
+         HZ: 10,815,909.863591
+       1/HZ: 0.000000092 s
+[       OK ] LoadFactor/HashMapTest.FindPerf/2 (1509 ms)
+[----------] 3 tests from LoadFactor/HashMapTest (4530 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test case ran. (4530 ms total)
+[  PASSED  ] 3 tests.
+```
 
 #### 模板Fixture用例
 
@@ -155,11 +202,38 @@ TYPED_PERF_TEST(QueueTest, PushPopPerf)
 }
 ```
 
-如上面代码，我们使用TYPED_TEST_CASE定义了int和std::vector<char>两个类参数分别来做性能测试，这时基于模板的用例使用TYPED_PERF_TEST定义（与gtest中的TYPED_TEST对应）。执行结果如下：
+如上面代码，我们使用TYPED\_TEST\_CASE定义了int和std::vector<char>两个类参数分别来做性能测试，这时基于模板的用例使用TYPED\_PERF\_TEST定义（与gtest中的TYPED\_TEST对应）。执行结果如下：
 
-#### PERF_ABORT
+```
+$ ./gtestx_examples --gtest_filter='QueueTest*PushPopPerf*'
+[==========] Running 2 tests from 2 test cases.
+[----------] Global test environment set-up.
+[----------] 1 test from QueueTest/0, where TypeParam = int
+[ RUN      ] QueueTest/0.PushPopPerf
+      count: 37,617,883
+       time: 1.509303 s
+         HZ: 24,924,009.956914
+       1/HZ: 0.000000040 s
+[       OK ] QueueTest/0.PushPopPerf (1509 ms)
+[----------] 1 test from QueueTest/0 (1509 ms total)
 
-如果你想在PERF函数体中使用ASSERT_XXX等gtest宏，需要注意当断言fail时默认它只能跳出当前函数还不是整个循环性能测试的用命，所以gtestx增加了一个辅助宏来帮助能正确地跳出整个性能测试用例。如下代码所示：
+[----------] 1 test from QueueTest/1, where TypeParam = std::vector<char, std::allocator<char> >
+[ RUN      ] QueueTest/1.PushPopPerf
+      count: 9,433,683
+       time: 1.508871 s
+         HZ: 6,252,146.803802
+       1/HZ: 0.000000160 s
+[       OK ] QueueTest/1.PushPopPerf (1509 ms)
+[----------] 1 test from QueueTest/1 (1509 ms total)
+
+[----------] Global test environment tear-down
+[==========] 2 tests from 2 test cases ran. (3018 ms total)
+[  PASSED  ] 2 tests.
+```
+
+#### PERF\_ABORT
+
+如果你想在PERF函数体中使用ASSERT\_XXX等gtest宏，需要注意当断言fail时默认它只能跳出当前函数还不是整个循环性能测试的用命，所以gtestx增加了一个辅助宏来帮助能正确地跳出整个性能测试用例。如下代码所示：
 
 ```C++
 PERF_TEST(MiscFeaturesTest, PerfAbort)
