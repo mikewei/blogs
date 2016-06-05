@@ -267,7 +267,7 @@ PERF_TEST_OPT(MiscFeaturesTest, SysCallPerf, 10000, 5000)
 
 gtestx的实现原理并不复杂，它其实是hack了gtest的用例宏，在用例层之上又包装一层性能测试逻辑。
 
-如有兴趣，你可以在这里[https://github.com/mikewei/gtestx]()获取代码，其中也包括一些文档和示例代码。
+如有兴趣，你可以在[这里](https://github.com/mikewei/gtestx)获取代码，其中也包括一些文档和示例代码。
 
 #### 小结
 
