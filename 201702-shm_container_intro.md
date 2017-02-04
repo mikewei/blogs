@@ -77,4 +77,4 @@
 在线文档可在此查看: [SHM-Container Documentation](https://mikewei.github.io/doc/shm_container)
 
 
-[ht]: http://codinginet.com/articles/view/201512-high_performance_hash_table?simple=1
+[ht]: https://github.com/mikewei/blogs/blob/master/201512-high_performance_hash_table.md
