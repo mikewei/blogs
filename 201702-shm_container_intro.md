@@ -72,7 +72,7 @@
 
 #### 资源
 
-最新代码可在github上获得：[https://github.com/mikewei/shm_containter]()
+最新代码可在github上获得：[https://github.com/mikewei/shm_container]()
 
 在线文档可在此查看: [SHM-Container Documentation](https://mikewei.github.io/doc/shm_container)
 
