@@ -37,7 +37,8 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
-        working-directory: ./chirpy
+        with:
+          generator_config_file: "chirpy/_config.yml"
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -61,8 +62,7 @@ jobs:
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "_site${{ steps.pages.outputs.base_path }}"
-        working-directory: ./chirpy
+          path: "chirpy/_site${{ steps.pages.outputs.base_path }}"
 
   deploy:
     environment:
