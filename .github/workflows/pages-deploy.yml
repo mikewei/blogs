@@ -45,6 +45,7 @@ jobs:
         with:
           ruby-version: 3.3
           bundler-cache: true
+        working-directory: ./chirpy
 
       - name: Build site
         run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
