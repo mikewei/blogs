@@ -38,7 +38,7 @@ F\_X(x) &= P(X < x) \\\\
 \end{split}
 $$
 
-从X的累积分布函数我们可以直接得出X的期望E(X) （具体推导有点复杂，这里不详述，可以[参考这里](http://www.stat.berkeley.edu/~mlugo/stat134-f11/exponential-maximum.pdf)）：
+从X的累积分布函数我们可以直接得出X的期望E(X) （具体推导有点复杂，这里不详述，可以[参考这里](https://www.stat.berkeley.edu/~mlugo/stat134-f11/exponential-maximum.pdf)）：
 
 $$
 \begin{split}
