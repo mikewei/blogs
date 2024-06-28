@@ -76,7 +76,7 @@ math: false
 
 	cat /proc/interrupts
 
-这里也[有篇文章](http://blog.csdn.net/turkeyzhou/article/details/7528182)较详细介绍了这个主题可作参考。
+这里也[有篇文章](https://blog.csdn.net/turkeyzhou/article/details/7528182)较详细介绍了这个主题可作参考。
 
 
 #### RPS
@@ -99,9 +99,9 @@ RPS是工作在NAPI层(或者说在Soft-IRQ处理中接近入口的位置)的入
 
 前面我们说到在没有多队列网卡的服务器，RPS可以发挥重要作用，那如果已经有多队列网卡了是否还需要RPS呢？根据我目前的经验来说，一般情况下有队列网卡的环境下配置RPS不会再有明显的提升。但我认为仍存在一些情况结合RPS是有意义的，比如队列数明显少于核数，再比如某些RFS（下面会介绍）可以优化的场景可以打开RPS+RFS。
 
-如果你有兴趣看一下RPS的关键内核代码，可以[查看这里](http://lxr.free-electrons.com/source/net/core/dev.c#L4202)。
+如果你有兴趣看一下RPS的关键内核代码，可以[查看这里](https://lxr.free-electrons.com/source/net/core/dev.c#L4202)。
 
-这里也[有篇文章](http://simohayha.iteye.com/blog/720850)介绍了一些内核实现细节可作参考。
+这里也[有篇文章](https://simohayha.iteye.com/blog/720850)介绍了一些内核实现细节可作参考。
 
 #### RFS
 
@@ -124,9 +124,9 @@ RFS的配置也比较简单，有两处，一个是全局路由表的大小，�
 
 更详细的配置说明可[参考这里](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/6/html/Performance_Tuning_Guide/network-rfs.html)。
 
-如果有兴趣看一下它的实现，可从[这里(记录路由)](http://lxr.free-electrons.com/source/net/ipv4/af_inet.c#L762)和[这里(查询路由)](http://lxr.free-electrons.com/source/net/core/dev.c#L3481)入手。
+如果有兴趣看一下它的实现，可从[这里(记录路由)](https://lxr.free-electrons.com/source/net/ipv4/af_inet.c#L762)和[这里(查询路由)](https://lxr.free-electrons.com/source/net/core/dev.c#L3481)入手。
 
-这里也[有篇文章](http://www.pagefault.info/?p=115)介绍了实现可供参考。
+这里也[有篇文章](https://www.pagefault.info/?p=115)介绍了实现可供参考。
 
 
 #### XPS
@@ -142,7 +142,7 @@ RFS的配置也比较简单，有两处，一个是全局路由表的大小，�
 
 可以注意的是，根据原理，对于非多队列网卡设置XPS是没有意义和效果的。如果一个CPU核没有出现在任何一个TX-Queue的xps\_cpus设置里，当该CPU核对该设备发包时，会退回使用默认hash的方式去选择TX-Queue。
 
-如果你对它的实现有兴趣，可以从[这里看起](http://lxr.free-electrons.com/source/net/core/dev.c#L3203)。
+如果你对它的实现有兴趣，可以从[这里看起](https://lxr.free-electrons.com/source/net/core/dev.c#L3203)。
 
 这里是一篇[原作者对此的简介](https://lwn.net/Articles/412062/)。
 
@@ -164,7 +164,7 @@ SO\_REUSEPORT很好地解决了多进程读写同一端口场景的2个问题：
 使用此方式，TCP/UDP服务器编程模式都非常简单了，多进程/线程创建socket设置SO\_REUSEPORT后bind，后面像单进程一样处理就可以了。同时性能也可获得明显提升，我们较早前一个经验是UDP改造后qps提升一倍。
 
 
-如果你对它的实现有兴趣，可以从[这里(UDP)](http://lxr.free-electrons.com/source/net/ipv4/udp.c#L614)和[这里(TCP)](http://lxr.free-electrons.com/source/net/ipv4/inet_hashtables.c#L238)看看源码。
+如果你对它的实现有兴趣，可以从[这里(UDP)](https://lxr.free-electrons.com/source/net/ipv4/udp.c#L614)和[这里(TCP)](https://lxr.free-electrons.com/source/net/ipv4/inet_hashtables.c#L238)看看源码。
 
 这里有一篇介绍得也比较详细的[文章](https://lwn.net/Articles/542629/)。
 

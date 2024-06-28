@@ -13,7 +13,7 @@ debian下安装过程:
 	sudo apt-get install libclang-dev       #安装libclang, 底层库, 插件直接使用库更高效
     sudo apt-get install vim-nox            #安装支持python的vim
 
-这里下载vim[clang_complete插件](http://www.vim.org/scripts/script.php?script_id=3302)
+这里下载vim[clang_complete插件](https://www.vim.org/scripts/script.php?script_id=3302)
 
 	vim clang_complete.vmb -c 'so %' -c 'q' #安装vim插件
 
