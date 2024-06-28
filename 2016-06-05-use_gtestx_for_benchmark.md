@@ -1,6 +1,10 @@
-### 使用gtestx写C++性能测试
-[工具效率][2016-06-05 01:00:00 +0800]
-
+---
+title: 使用gtestx写C++性能测试
+date: 2016-06-05 01:00:00 +0800
+categories: [programming]
+tags: [C++]
+math: false
+---
 
 在互联网后台开发领域，针对性能的单元测试常被忽视，实际上它非常重要，至少与普通的unit-test一样重要。特别是对一些基础库、关键部分代码，必要的性能单元测试，可帮助在模块粒度上发现并解决性能问题，这比在系统粒度上分析解决性能问题要容易地多。更为重要的，关注并熟悉模块级性能，是架构师掌控系统整体性能的基础，这在架构设计、线上问题分析等场景中会经常被使用。在过去几年工作中我写过很多的性能单测代码，它们帮助我更好地理解各种系统调用、数据结构、组件的性能；在我经历的几个海量系统研发过程中，严格的性能单测也对项目最终质量起到了显著的作用。
 
@@ -10,7 +14,7 @@ gtestx是基于gtest的一个扩展，从取名上也很容易理解。为什么
 
 下面我们就从几个实例出发，来介绍一下gtestx的用法。
 
-#### 简单用例
+## 简单用例
 
 首先一个简单的例子，测试系统调用getppid的性能：
 
@@ -59,7 +63,7 @@ $ ./gtestx_examples --gtest_filter='SimpleTest.*'
 
 从上面可以看出SimpleTest.SysCallPerf这个性能测试Test一共循环执行了25369636次，总共1.5秒时长，调用性能为每秒1681万次，平均每次调用耗时59纳秒。
 
-#### Fixture用例
+## Fixture用例
 
 很多时候我们性能测试的过程是，先初始化需要的状态，然后性能测试，最后清理资源。这时我们适合使用gtest中的Fixture用例的gtestx版本。我们举一个具体一点的例子，比如要测试std::map的查找性能，需要先在map中插入一定数量的元素，然后执行性能单测，可以实现为下面的代码：
 
@@ -108,7 +112,7 @@ $ ./gtestx_examples --gtest_filter='StdMapTest.FindPerf'
 ```
 
 
-#### 带参数的Fixture用例
+## 带参数的Fixture用例
 
 假设我们要测试std::unordered\_map的查找性能，但hash表的性能跟它的桶数量有很大的关系，我们希望测试在不同节点数/桶数量的配置下的查找性能的情况。若用普通方法我们需要根据不同的配置写多个用例，但使用带参数的Fixture用例一个就可以搞定了：
 
@@ -173,7 +177,7 @@ $ ./gtestx_examples --gtest_filter='*HashMapTest.FindPerf*'
 [  PASSED  ] 3 tests.
 ```
 
-#### 模板Fixture用例
+## 模板Fixture用例
 
 又假设我们要测试std::queue的进队出队的性能，并且需要考虑不同的元素类型（std::queue的模板参数类型）下的性能情况，我们可以使用基于模板Fixture的用例：
 
@@ -231,7 +235,7 @@ $ ./gtestx_examples --gtest_filter='QueueTest*PushPopPerf*'
 [  PASSED  ] 2 tests.
 ```
 
-#### PERF\_ABORT
+## PERF\_ABORT
 
 如果你想在PERF函数体中使用ASSERT\_XXX等gtest宏，需要注意当断言fail时默认它只能跳出当前函数还不是整个性能测试的用例，所以gtestx中增加了一个辅助宏来帮助能正确地跳出整个用例。所以当使用ASSERT\_XXX等宏时，应当使用类似下面的代码：
 
@@ -242,7 +246,7 @@ PERF_TEST(MiscFeaturesTest, PerfAbort)
 }
 ```
 
-#### 指定频率和时长
+## 指定频率和时长
 
 默认gtestx对每个PERF用例的执行频率总是死循环压满，执行时长默认是固定的(1.5秒)。这两个参数实际都可以修改。什么场景需要修改呢？比如我们希望观察一定调用频率下的CPU或其它资源消耗，可以修改执行频率参数为某一固定值；再比如我们希望执行更长时间以观察性能的平均情况，则可以修改执行时长的参数。如何修改？gtestx考虑灵活性提供了2种方式。
 
@@ -263,13 +267,13 @@ PERF_TEST_OPT(MiscFeaturesTest, SysCallPerf, 10000, 5000)
 ./gtestx_examples --gtest_filters='SimpleTest.*' -hz=10000 -time=10000
 ```
 
-#### 实现和代码
+## 实现和代码
 
 gtestx的实现原理并不复杂，它其实是hack了gtest的用例宏，在用例层之上又包装一层性能测试逻辑。
 
 如有兴趣，你可以在[这里](https://github.com/mikewei/gtestx)获取代码，其中也包括一些文档和示例代码。
 
-#### 小结
+## 小结
 
 本文简单介绍了gtestx以及其常用的做性能单元测试的方法，希望对你的工作有所帮助。
 
