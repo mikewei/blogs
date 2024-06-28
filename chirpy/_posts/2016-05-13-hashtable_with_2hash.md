@@ -5,7 +5,6 @@ categories: [algorithm]
 tags: [hash]
 math: true
 ---
-
 ## 问题背景
 
 [Balls-into-bins][1] 问题是计算机科学应用中一个经典的概率问题，最典型的是分析随机分配算法中的不均衡性。在该wiki的[讨论][3]中，同时给出一种`部分随机分配`(partially random allocation)的优化，可以使不均衡性降低。它应用到链式哈希表的设计中，就是在写入key时使用2个不同的哈希函数计算出2个bucket值，然后比较两个bucket中的链表长度，选择较短的那个bucket的链表进行写入。我们想分析的问题就是，该优化方法能否有效优化常规链式哈希表的性能。
