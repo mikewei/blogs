@@ -1,0 +1,50 @@
+name: "Update chirpy branch"
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - .gitignore
+      - README.md
+      - LICENSE
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment
+concurrency:
+  group: "update-chirpy"
+  cancel-in-progress: true
+
+jobs:
+  push-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout-master
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # submodules: true
+          # If using the 'assets' git submodule from Chirpy Starter, uncomment above
+          # (See: https://github.com/cotes2020/chirpy-starter/tree/main/assets)
+
+      - name: Update-chirpy-branch
+        run: |
+          git switch chirpy
+          git config --local user.email "mikewei@126.com"
+          git config --local user.name "mikewei"
+          git merge -m "merge master" --log master
+          rm -f chirpy/_posts/*.md && cp *.md chirpy/_posts/
+          rm -rf chirpy/res/ && cp -r ./res chirpy/
+          git commit -a -m "update blogs"
+
+      - name: Push-chirpy-branch
+        uses: ad-m/github-push-action@master
+        with:
+          branch: chirpy
