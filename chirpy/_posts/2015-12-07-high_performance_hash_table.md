@@ -90,3 +90,5 @@ math: false
 ## 结论
 
 本文给出了基于原多阶哈希表的一种改进实现 -- 等比多阶哈希表。它的每阶节点数按照`0.6`的比例逐阶收敛，阶数为`min(x，3*x^0.5)`，其中x为按0.6比例收敛的理论阶数，阶数随总节点数大小而变动，通常取值范围在`12～16`左右。该等比多阶哈希表空间利用率在`85%`以上，有效查询平均比较次数`2.5`左右，约是原多阶哈希表的10倍，性能约在`2000万/秒`以上，最坏或空查询比较次数在12~16左右，约是原多阶哈希表的`3~4`倍。
+
+在[shm_container](https://github.com/mikewei/shm_container)库中已有一个此算法的C++实现[ShmHashTable](https://github.com/mikewei/shm_container/blob/master/src/shmc/shm_hash_table.h)。
