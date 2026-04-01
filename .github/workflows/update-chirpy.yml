@@ -43,6 +43,8 @@ jobs:
           git merge -m "merge master" --log master
           rm -f chirpy/_posts/*.md && cp *.md chirpy/_posts/
           rm -rf chirpy/res/ && cp -r ./res chirpy/
+          git status
+          git add chirpy/
           git diff --quiet || git commit -a -m "update blogs"
 
       - name: Push-chirpy-branch
