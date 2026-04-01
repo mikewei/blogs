@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Checkout-master
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           persist-credentials: false # otherwise, the token used is the GITHUB_TOKEN, instead of your personal access token.
@@ -43,6 +43,8 @@ jobs:
           git merge -m "merge master" --log master
           rm -f chirpy/_posts/*.md && cp *.md chirpy/_posts/
           rm -rf chirpy/res/ && cp -r ./res chirpy/
+          git status
+          git add chirpy/
           git diff --quiet || git commit -a -m "update blogs"
 
       - name: Push-chirpy-branch
