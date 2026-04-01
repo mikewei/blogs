@@ -45,7 +45,7 @@ jobs:
           rm -rf chirpy/res/ && cp -r ./res chirpy/
           git status
           git add chirpy/
-          git diff --quiet || git commit -a -m "update blogs"
+          git commit -m "update blogs"
 
       - name: Push-chirpy-branch
         uses: ad-m/github-push-action@master
