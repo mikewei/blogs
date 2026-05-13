@@ -1,6 +1,6 @@
 ---
 title: 使用Hermes-Agent一个月的感受
-date: 2025-05-13 08:00:00 +0800
+date: 2026-05-13 08:00:00 +0800
 categories: [tools]
 tags: [ai, agent]
 math: false
